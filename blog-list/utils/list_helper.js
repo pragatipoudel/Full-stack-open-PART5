@@ -32,8 +32,33 @@ const favoriteBlog = (blogs) => {
     : returnObject
 }
 
+const mostBlogs = (blogs) => {
+    const authors = blogs.map(blog => blog.author)
+    let maxCount = 0
+    let maxAuthor = ''
+    const blogCount = {}
+
+    authors.forEach(author => {
+        if (!blogCount[author]) {
+            blogCount[author] = 1
+        } else {
+            blogCount[author] += 1
+        }
+        if (blogCount[author] > maxCount) {
+            maxCount = blogCount[author]
+            maxAuthor = author
+        }
+    })
+    return {
+        author: maxAuthor,
+        blogs: maxCount
+    }
+
+}
+
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
 }
