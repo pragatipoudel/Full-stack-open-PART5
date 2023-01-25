@@ -56,9 +56,32 @@ const mostBlogs = (blogs) => {
 
 }
 
+const mostLikes = (blogs) => {
+    let maxLikes = 0
+    let maxAuthor = ''
+    const likesCount = {}
+    
+    blogs.forEach(blog => {
+        if(!likesCount[blog.author]) {
+            likesCount[blog.author] = blog.likes
+        } else {
+            likesCount[blog.author] += blog.likes
+        }
+        if (likesCount[blog.author] > maxLikes) {
+            maxLikes = likesCount[blog.author]
+            maxAuthor = blog.author
+        }
+    })
+    return {
+        author: maxAuthor,
+        likes: maxLikes
+    }
+}
+
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
