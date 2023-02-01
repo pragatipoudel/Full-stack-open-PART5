@@ -56,6 +56,25 @@ test('a valid blog can be added', async () => {
     const contents = blogsAtEnd.map(b => b.title)
     expect(contents).toContain('React patterns')
 })
+
+test('if likes is missing default to zero', async () => {
+    const newBlog = {
+        title: "Learning is fun",
+        author: "XYZ",
+        url: "http://learning.fun.com",
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const likes = blogsAtEnd.map(b => b.likes)
+    const endLike = likes[blogsAtEnd.length - 1]
+    expect(endLike).toEqual(0)
+})
 afterAll(async () => {
     await mongoose.connection.close()
 })
