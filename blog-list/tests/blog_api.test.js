@@ -75,6 +75,18 @@ test('if likes is missing default to zero', async () => {
     const endLike = likes[blogsAtEnd.length - 1]
     expect(endLike).toEqual(0)
 })
+
+test('if title or url are missing send 400 Bad Request', async () => {
+    const newBlog = {
+        author: "XYZ",
+        likes: 5,
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+})
 afterAll(async () => {
     await mongoose.connection.close()
 })
