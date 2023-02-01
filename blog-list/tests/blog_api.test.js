@@ -188,6 +188,30 @@ describe('when there is initially one user in db', () => {
         const usersAtEnd = await helper.usersInDb()
         expect(usersAtEnd).toEqual(usersAtStart)
     })
+
+    test('ensure invalid users are not created', async () => {
+        const usersAtStart = await helper.usersInDb()
+
+        const newUser = {
+            username: 'bibk',
+            name: 'Invalid',
+            password: 'nc'
+        }
+
+        const result = await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-type', /application\/json/)
+
+        expect(result.body.error).toContain(`User validation failed:`)
+        
+        const usersAtEnd = await helper.usersInDb()
+        expect(usersAtEnd).toEqual(usersAtStart)
+
+
+
+    })
 })
 
 
