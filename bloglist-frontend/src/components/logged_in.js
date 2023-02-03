@@ -11,10 +11,11 @@ const LoggedIn = ({
         setAuthor,
         url,
         setUrl,
-        setBlogs
+        setBlogs,
+        message,
+        setNewMessage
      }) => (
     <div>
-        <h2>blogs</h2>
         <p>
         {user.name} logged in
         <button onClick={handleLogOut}>
@@ -30,6 +31,9 @@ const LoggedIn = ({
             setUrl={setUrl}
             blogs={blogs}
             setBlogs={setBlogs}
+            message={message}
+            setNewMessage={setNewMessage}
+
         />
     
           {blogs.map(blog =>

@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Error from './components/error'
 import LoggedIn from './components/logged_in'
+import Notification from './components/notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [message, setNewMessage] = useState('')
+  const [error, setNewError] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [title, setTitle] = useState('')
@@ -50,9 +53,9 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setNewError('Wrong username or password')
       setTimeout(() => {
-        setErrorMessage(null)
+        setNewError('')
       }, 5000)
     }
   }
@@ -90,23 +93,32 @@ const handleLogOut = () => {
 if (user === null) {
   return (
     <div>
+      <Error message={error} />
       <h2>Log in to application</h2>
       {loginForm()}
     </div>
   )
 } else {
     return (
-      <LoggedIn 
-        user={user}
-        handleLogOut={handleLogOut}
-        blogs={blogs}
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        url={url}
-        setUrl={setUrl}
-        setBlogs={setBlogs} />
+      <div>
+        <Notification message={message} />
+        <h2>
+          Blogs
+        </h2>
+        <LoggedIn 
+          user={user}
+          handleLogOut={handleLogOut}
+          blogs={blogs}
+          title={title}
+          setTitle={setTitle}
+          author={author}
+          setAuthor={setAuthor}
+          url={url}
+          setUrl={setUrl}
+          setBlogs={setBlogs}
+          message={message}
+          setNewMessage={setNewMessage} />
+        </div>
     )
   }
 }

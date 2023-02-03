@@ -1,7 +1,7 @@
 
 import blogService from '../services/blogs'
 
-const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, setBlogs }) => {
+const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, setBlogs, setNewMessage }) => {
     const addNewBlog = (event) => {
         event.preventDefault()
         const newBlog = {
@@ -15,6 +15,10 @@ const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, se
                 setTitle('')
                 setAuthor('')
                 setUrl('')
+                setNewMessage(`A new blog ${newBlog.title} by ${newBlog.author} was added`)
+                setTimeout(() => {
+                    setNewMessage('')
+                }, 5000)
             })
     }
     return (
