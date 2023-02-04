@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
 
-const Blog = ({blog}) => {
-  const [view, setView] = useState(false)
+const BlogToggle = ({blog}) => {
+    const [view, setView] = useState(false)
 
     const blogStyle = {
         paddingTop: 10,
@@ -19,7 +19,7 @@ const Blog = ({blog}) => {
     }
 
     return (
-        <div style={blogStyle}>
+        <div>
             <div style={hideWhenVisible}>
                 {blog.title} {blog.author}
                 <button onClick={toggleVisibility}>View</button>
@@ -40,4 +40,4 @@ const Blog = ({blog}) => {
     )
 }
 
-export default Blog
+export default BlogToggle
