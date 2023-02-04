@@ -6,12 +6,6 @@ const LoggedIn = ({
         user,
         handleLogOut,
         blogs,
-        title,
-        setTitle,
-        author,
-        setAuthor,
-        url,
-        setUrl,
         setBlogs,
         message,
         setNewMessage,
@@ -26,12 +20,6 @@ const LoggedIn = ({
         </p>
         <Togglable buttonLabel='create new blog' ref={blogRef}>
           <AddNewBlog
-              title={title}
-              setTitle={setTitle}
-              author={author}
-              setAuthor={setAuthor}
-              url={url}
-              setUrl={setUrl}
               blogs={blogs}
               setBlogs={setBlogs}
               message={message}

@@ -1,7 +1,10 @@
-
+import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, setBlogs, setNewMessage, blogRef }) => {
+const AddNewBlog = ({ blogs, setBlogs, setNewMessage, blogRef }) => {
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [url, setUrl] = useState('')
     const addNewBlog = (event) => {
         event.preventDefault()
         const newBlog = {

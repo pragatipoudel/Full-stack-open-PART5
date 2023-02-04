@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import Blog from './components/Blog'
 import Error from './components/error'
 import LoggedIn from './components/logged_in'
 import Notification from './components/notification'
@@ -13,9 +12,6 @@ const App = () => {
   const [error, setNewError] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
 
   const blogFormRef = useRef()
 
@@ -111,12 +107,6 @@ if (user === null) {
           user={user}
           handleLogOut={handleLogOut}
           blogs={blogs}
-          title={title}
-          setTitle={setTitle}
-          author={author}
-          setAuthor={setAuthor}
-          url={url}
-          setUrl={setUrl}
           setBlogs={setBlogs}
           message={message}
           setNewMessage={setNewMessage}
