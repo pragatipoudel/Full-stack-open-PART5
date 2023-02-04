@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const AddNewBlog = ({ blogs, setBlogs, setNewMessage, blogRef }) => {
+const AddNewBlog = ({ blogs, setBlogs, setNewMessage, blogRef, user }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -15,7 +15,10 @@ const AddNewBlog = ({ blogs, setBlogs, setNewMessage, blogRef }) => {
         blogRef.current.toggleVisibility()
         blogService.create(newBlog)
             .then((returnedBlog) => {
-                setBlogs(blogs.concat(returnedBlog))
+                setBlogs(blogs.concat({
+                    ...returnedBlog,
+                    user: user
+                }))
                 setTitle('')
                 setAuthor('')
                 setUrl('')

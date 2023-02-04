@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 
 const Blog = ({blog}) => {
   const [view, setView] = useState(false)
@@ -26,7 +26,7 @@ const Blog = ({blog}) => {
             </div>
             <div style={showWhenVisible}>
                 <p>
-                    {blog.title}
+                    {blog.title} {blog.author}
                     <button onClick={toggleVisibility}>Hide</button>
                 </p>
                 <p>{blog.url}</p>
@@ -34,7 +34,7 @@ const Blog = ({blog}) => {
                     {blog.likes}
                     <button>like</button>
                 </p>
-                <p>{blog.author}</p>
+                <p>{blog.user?.name}</p>
             </div>
         </div>
     )

@@ -25,7 +25,7 @@ const LoggedIn = ({
               message={message}
               setNewMessage={setNewMessage}
               blogRef={blogRef}
-
+              user={user}
           />
         </Togglable>
     
