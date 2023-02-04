@@ -1,5 +1,6 @@
 import Blog from "./Blog"
 import AddNewBlog from "./new_blog"
+import Togglable from "./togglable"
 
 const LoggedIn = ({ 
         user,
@@ -13,7 +14,8 @@ const LoggedIn = ({
         setUrl,
         setBlogs,
         message,
-        setNewMessage
+        setNewMessage,
+        blogRef
      }) => (
     <div>
         <p>
@@ -22,19 +24,22 @@ const LoggedIn = ({
             Log Out
         </button>
         </p>
-        <AddNewBlog
-            title={title}
-            setTitle={setTitle}
-            author={author}
-            setAuthor={setAuthor}
-            url={url}
-            setUrl={setUrl}
-            blogs={blogs}
-            setBlogs={setBlogs}
-            message={message}
-            setNewMessage={setNewMessage}
+        <Togglable buttonLabel='create new blog' ref={blogRef}>
+          <AddNewBlog
+              title={title}
+              setTitle={setTitle}
+              author={author}
+              setAuthor={setAuthor}
+              url={url}
+              setUrl={setUrl}
+              blogs={blogs}
+              setBlogs={setBlogs}
+              message={message}
+              setNewMessage={setNewMessage}
+              blogRef={blogRef}
 
-        />
+          />
+        </Togglable>
     
           {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />

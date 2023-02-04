@@ -1,7 +1,7 @@
 
 import blogService from '../services/blogs'
 
-const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, setBlogs, setNewMessage }) => {
+const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, setBlogs, setNewMessage, blogRef }) => {
     const addNewBlog = (event) => {
         event.preventDefault()
         const newBlog = {
@@ -9,6 +9,7 @@ const AddNewBlog = ({ title, setTitle, author, setAuthor, url, setUrl, blogs, se
             author,
             url
         }
+        blogRef.current.toggleVisibility()
         blogService.create(newBlog)
             .then((returnedBlog) => {
                 setBlogs(blogs.concat(returnedBlog))

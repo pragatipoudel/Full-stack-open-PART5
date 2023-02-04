@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Error from './components/error'
 import LoggedIn from './components/logged_in'
@@ -16,6 +16,8 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+
+  const blogFormRef = useRef()
 
 
   useEffect(() => {
@@ -117,7 +119,8 @@ if (user === null) {
           setUrl={setUrl}
           setBlogs={setBlogs}
           message={message}
-          setNewMessage={setNewMessage} />
+          setNewMessage={setNewMessage}
+          blogRef={blogFormRef} />
         </div>
     )
   }
