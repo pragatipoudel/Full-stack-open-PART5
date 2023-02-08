@@ -36,6 +36,19 @@ const Blog = ({blog, setBlogs, blogs}) => {
 
     }
 
+    const handleDelete = (event) => {
+        event.preventDefault()
+        if (window.confirm(`Remove ${blog.title} by ${blog.author} ?`)) {
+        blogService
+            .remove(blog.id)
+            .then(() => {
+                setBlogs(blogs.filter(b => b.id !== blog.id))
+            })
+        }
+       
+
+    }
+
     return (
         <div style={blogStyle}>
             <div style={hideWhenVisible}>
@@ -53,6 +66,11 @@ const Blog = ({blog, setBlogs, blogs}) => {
                     <button onClick={handleLike}>like</button>
                 </p>
                 <p>{blog.user?.name}</p>
+                <p>
+                    <button onClick={handleDelete}>
+                        Remove
+                    </button>
+                </p>
             </div>
         </div>
     )

@@ -10,7 +10,14 @@ const LoggedIn = ({
         message,
         setNewMessage,
         blogRef
-     }) => (
+     }) => {
+
+  const sortedBlogs = [...blogs]
+  sortedBlogs.sort((a, b) => {
+    return b.likes - a.likes
+  })
+
+  return (
     <div>
         <p>
         {user.name} logged in
@@ -29,10 +36,10 @@ const LoggedIn = ({
           />
         </Togglable>
     
-          {blogs.map(blog =>
+          {sortedBlogs.map(blog =>
             <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs}/>
           )}
     </div>
-)
+) }
 
 export default LoggedIn
