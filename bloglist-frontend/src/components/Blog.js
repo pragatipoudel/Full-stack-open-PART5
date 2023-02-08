@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({blog, setBlogs, blogs, user}) => {
-  const [view, setView] = useState(false)
+const Blog = ({ blog, setBlogs, blogs, user }) => {
+    const [view, setView] = useState(false)
 
     const blogStyle = {
         paddingTop: 10,
@@ -12,8 +12,8 @@ const Blog = ({blog, setBlogs, blogs, user}) => {
         marginBottom: 5
     }
 
-    const hideWhenVisible = { display:view ? 'none' : ''}
-    const showWhenVisible = {display: view ? '' : 'none'}
+    const hideWhenVisible = { display:view ? 'none' : '' }
+    const showWhenVisible = { display: view ? '' : 'none' }
 
     const toggleVisibility = () => {
         setView(!view)
@@ -39,11 +39,11 @@ const Blog = ({blog, setBlogs, blogs, user}) => {
     const handleDelete = (event) => {
         event.preventDefault()
         if (window.confirm(`Remove ${blog.title} by ${blog.author} ?`)) {
-        blogService
-            .remove(blog.id)
-            .then(() => {
-                setBlogs(blogs.filter(b => b.id !== blog.id))
-            })
+            blogService
+                .remove(blog.id)
+                .then(() => {
+                    setBlogs(blogs.filter(b => b.id !== blog.id))
+                })
         }
     }
 
@@ -64,8 +64,8 @@ const Blog = ({blog, setBlogs, blogs, user}) => {
                     {blog.likes}
                     <button onClick={handleLike}>like</button>
                 </p>
-                <p>{blog.user?.name}</p>
-                {(blog.user?.username === user.username) && (
+                <p>{blog.user && blog.user.name}</p>
+                {(blog.user && blog.user.username === user.username) && (
                     <p>
                         <button onClick={handleDelete}>
                             Remove

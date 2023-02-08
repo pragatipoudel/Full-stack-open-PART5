@@ -30,9 +30,9 @@ const AddNewBlog = ({ blogs, setBlogs, setNewMessage, blogRef, user }) => {
     }
     return (
         <form onSubmit={addNewBlog}>
-           <div>
+            <div>
                 title:
-                <input 
+                <input
                     type="text"
                     value={title}
                     name="Title"
