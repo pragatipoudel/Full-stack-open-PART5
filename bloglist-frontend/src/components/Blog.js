@@ -1,6 +1,7 @@
-import { useReducer, useState } from "react"
+import { useState } from "react"
+import blogService from '../services/blogs'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, setBlogs, blogs}) => {
   const [view, setView] = useState(false)
 
     const blogStyle = {
@@ -18,6 +19,23 @@ const Blog = ({blog}) => {
         setView(!view)
     }
 
+
+
+    const handleLike = (event) => {
+        event.preventDefault()
+        const updatedBlog = {
+            ...blog,
+            likes: blog.likes ? blog.likes + 1 : 1
+        }
+        blogService
+            .update(blog.id, updatedBlog)
+            .then((returnedBlog) => {
+                setBlogs(blogs.map(b => b.id !== blog.id ? b : returnedBlog))
+            })
+
+
+    }
+
     return (
         <div style={blogStyle}>
             <div style={hideWhenVisible}>
@@ -32,7 +50,7 @@ const Blog = ({blog}) => {
                 <p>{blog.url}</p>
                 <p>
                     {blog.likes}
-                    <button>like</button>
+                    <button onClick={handleLike}>like</button>
                 </p>
                 <p>{blog.user?.name}</p>
             </div>
