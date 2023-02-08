@@ -1,7 +1,7 @@
 import { useState } from "react"
 import blogService from '../services/blogs'
 
-const Blog = ({blog, setBlogs, blogs}) => {
+const Blog = ({blog, setBlogs, blogs, user}) => {
   const [view, setView] = useState(false)
 
     const blogStyle = {
@@ -45,9 +45,8 @@ const Blog = ({blog, setBlogs, blogs}) => {
                 setBlogs(blogs.filter(b => b.id !== blog.id))
             })
         }
-       
-
     }
+
 
     return (
         <div style={blogStyle}>
@@ -66,11 +65,13 @@ const Blog = ({blog, setBlogs, blogs}) => {
                     <button onClick={handleLike}>like</button>
                 </p>
                 <p>{blog.user?.name}</p>
-                <p>
-                    <button onClick={handleDelete}>
-                        Remove
-                    </button>
-                </p>
+                {(blog.user?.username === user.username) && (
+                    <p>
+                        <button onClick={handleDelete}>
+                            Remove
+                        </button>
+                    </p>
+                )}
             </div>
         </div>
     )
