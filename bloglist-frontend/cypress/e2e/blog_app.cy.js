@@ -1,12 +1,18 @@
 describe('Blog app', function() {
     beforeEach(function() {
         cy.request('POST', 'http://localhost:3003/api/testing/reset')
-        const user = {
+        const user1 = {
             name: 'Pragati Poudel',
             username: 'pragatip',
             password: 'apple'
         }
-        cy.request('POST', 'http://localhost:3003/api/users', user)
+        const user2 = {
+            name: 'Bibek Dahal',
+            username: 'bibekd',
+            password: 'ball'
+        }
+        cy.request('POST', 'http://localhost:3003/api/users', user1)
+        cy.request('POST', 'http://localhost:3003/api/users', user2)
         cy.visit('http://localhost:3000')
     })
 
@@ -74,6 +80,16 @@ describe('Blog app', function() {
                 cy.contains('ABC blog').parent().find('#view-button').click()
                 cy.get('#remove-button').click()
                 cy.get('html').should('not.contain', 'ABC blog')
+
+            })
+
+            it('other user cannot see remove button', function() {
+                cy.contains('Log Out').click()
+                cy.login({ username: 'bibekd', password: 'ball' })
+
+                cy.contains('ABC blog').parent().find('#view-button').click()
+                cy.get('#remove-button').should('not.exist')
+
 
             })
         })
