@@ -54,6 +54,22 @@ describe('Blog app', function() {
             cy.get('.notification').should('contain', 'A new blog XYZ blog by Pogo was added')
 
         })
+
+        describe('manipulate existing blog', function() {
+            beforeEach(function() {
+                cy.createBlog({
+                    title: 'ABC blog',
+                    author: 'Bobo',
+                    url: 'https://bobo.com'
+                })
+            })
+
+            it.only('user can like blog', function() {
+                cy.contains('ABC blog').parent().find('#view-button').click()
+                cy.get('#like-button').click()
+                cy.get('[data-testid="like"]').should('contain', '1')
+            })
+        })
     })
 
 })
