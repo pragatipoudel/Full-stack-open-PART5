@@ -71,14 +71,14 @@ describe('Blog app', function() {
             })
 
             it('user can like blog', function() {
-                cy.contains('ABC blog').parent().find('#view-button').click()
-                cy.get('#like-button').click()
+                cy.contains('ABC blog').parent().find('.view-button').click()
+                cy.get('.like-button').click()
                 cy.get('[data-testid="like"]').should('contain', '1')
             })
 
             it('creator can delete blog', function() {
-                cy.contains('ABC blog').parent().find('#view-button').click()
-                cy.get('#remove-button').click()
+                cy.contains('ABC blog').parent().find('.view-button').click()
+                cy.get('.remove-button').click()
                 cy.get('html').should('not.contain', 'ABC blog')
 
             })
@@ -87,10 +87,45 @@ describe('Blog app', function() {
                 cy.contains('Log Out').click()
                 cy.login({ username: 'bibekd', password: 'ball' })
 
-                cy.contains('ABC blog').parent().find('#view-button').click()
-                cy.get('#remove-button').should('not.exist')
+                cy.contains('ABC blog').parent().find('.view-button').click()
+                cy.get('.remove-button').should('not.exist')
 
 
+            })
+
+            it('check blogs are ordered according to likes', function() {
+                cy.createBlog({
+                    title: 'DEF blog',
+                    author: 'Bobo',
+                    url: 'https://bobo.com'
+                })
+                cy.createBlog({
+                    title: 'XYZ blog',
+                    author: 'Bobo',
+                    url: 'https://bobo.com'
+                })
+                cy.contains('ABC blog').parent().find('.view-button').click()
+                cy.contains('DEF blog').parent().find('.view-button').click()
+                cy.contains('XYZ blog').parent().find('.view-button').click()
+
+                cy.contains('XYZ blog').parent().find('.like-button').click()
+                cy.contains('XYZ blog').parent().find('[data-testid="like"]').should('contain', '1')
+                cy.contains('XYZ blog').parent().find('.like-button').click()
+                cy.contains('XYZ blog').parent().find('[data-testid="like"]').should('contain', '2')
+
+                cy.contains('DEF blog').parent().find('.like-button').click()
+                cy.contains('DEF blog').parent().find('[data-testid="like"]').should('contain', '1')
+                cy.contains('DEF blog').parent().find('.like-button').click()
+                cy.contains('DEF blog').parent().find('[data-testid="like"]').should('contain', '2')
+                cy.contains('DEF blog').parent().find('.like-button').click()
+                cy.contains('DEF blog').parent().find('[data-testid="like"]').should('contain', '3')
+
+                cy.contains('ABC blog').parent().find('.like-button').click()
+                cy.contains('ABC blog').parent().find('[data-testid="like"]').should('contain', '1')
+
+                cy.get('.blog').eq(0).should('contain', 'DEF blog')
+                cy.get('.blog').eq(1).should('contain', 'XYZ blog')
+                cy.get('.blog').eq(2).should('contain', 'ABC blog')
             })
         })
     })
