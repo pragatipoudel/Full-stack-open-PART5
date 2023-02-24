@@ -30,7 +30,14 @@ const LoggedIn = ({
             .then((returnedBlog) => {
                 setBlogs(blogs.map(b => b.id !== blog.id ? b : returnedBlog))
             })
+    }
 
+    const handleNewBlog = async (newBlog) => {
+        const returnedBlog = await blogService.create(newBlog)
+        setBlogs(blogs.concat({
+            ...returnedBlog,
+            user: user
+        }))
 
     }
 
@@ -44,12 +51,10 @@ const LoggedIn = ({
             </p>
             <Togglable buttonLabel='create new blog' ref={blogRef}>
                 <AddNewBlog
-                    blogs={blogs}
-                    setBlogs={setBlogs}
                     message={message}
                     setNewMessage={setNewMessage}
                     blogRef={blogRef}
-                    user={user}
+                    handleNewBlog={handleNewBlog}
                 />
             </Togglable>
 
