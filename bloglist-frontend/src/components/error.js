@@ -13,7 +13,7 @@ const Error = ({ message }) => {
         return null
     } else {
         return (
-            <div style={errorStyle}>
+            <div style={errorStyle} className='error'>
                 {message}
             </div>
         )
