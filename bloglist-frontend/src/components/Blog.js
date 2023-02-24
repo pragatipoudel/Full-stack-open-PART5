@@ -50,12 +50,12 @@ const Blog = ({ blog, setBlogs, blogs, user }) => {
 
     return (
         <div style={blogStyle}>
-            <div style={hideWhenVisible}>
+            <div style={hideWhenVisible} className='blogSmall'>
                 {blog.title} {blog.author}
                 <button onClick={toggleVisibility}>View</button>
             </div>
-            <div style={showWhenVisible}>
-                <p className='blogSmall'>
+            <div style={showWhenVisible} data-testid='blogAll'>
+                <p>
                     {blog.title} {blog.author}
                     <button onClick={toggleVisibility}>Hide</button>
                 </p>
