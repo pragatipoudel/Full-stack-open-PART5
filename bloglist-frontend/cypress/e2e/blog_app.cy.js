@@ -64,10 +64,17 @@ describe('Blog app', function() {
                 })
             })
 
-            it.only('user can like blog', function() {
+            it('user can like blog', function() {
                 cy.contains('ABC blog').parent().find('#view-button').click()
                 cy.get('#like-button').click()
                 cy.get('[data-testid="like"]').should('contain', '1')
+            })
+
+            it('creator can delete blog', function() {
+                cy.contains('ABC blog').parent().find('#view-button').click()
+                cy.get('#remove-button').click()
+                cy.get('html').should('not.contain', 'ABC blog')
+
             })
         })
     })

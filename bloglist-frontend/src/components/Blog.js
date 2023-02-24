@@ -57,7 +57,7 @@ const Blog = ({ blog, setBlogs, blogs, user, handleLike }) => {
                 <p>{blog.user && blog.user.name}</p>
                 {(blog.user && blog.user.username === user.username) && (
                     <p>
-                        <button onClick={handleDelete}>
+                        <button onClick={handleDelete} id='remove-button'>
                             Remove
                         </button>
                     </p>
