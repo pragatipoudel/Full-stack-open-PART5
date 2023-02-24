@@ -39,4 +39,21 @@ describe('Blog app', function() {
         })
     })
 
+    describe('When logged in', function() {
+        beforeEach(function() {
+            cy.login({ username: 'pragatip', password: 'apple' })
+        })
+
+        it('a new blog can be created', function() {
+            cy.contains('create new blog').click()
+            cy.get('input[placeholder*="title"]').type('XYZ blog')
+            cy.get('input[placeholder*="author"').type('Pogo')
+            cy.get('input[placeholder*="url"').type('https://pogo.com')
+            cy.get('#create-button').click()
+            cy.contains('XYZ blog')
+            cy.get('.notification').should('contain', 'A new blog XYZ blog by Pogo was added')
+
+        })
+    })
+
 })

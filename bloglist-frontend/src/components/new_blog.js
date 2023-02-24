@@ -58,7 +58,7 @@ const AddNewBlog = ({ setNewMessage, blogRef, handleNewBlog }) => {
                     placeholder='url'
                 />
             </div>
-            <button type="submit">create</button>
+            <button type="submit" id="create-button">create</button>
         </form>
     )
 }
