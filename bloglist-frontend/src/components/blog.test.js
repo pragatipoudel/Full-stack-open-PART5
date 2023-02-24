@@ -39,3 +39,24 @@ test('url and author shown when button is clicked', async () => {
     const div = screen.getByTestId('blogAll')
     expect(div).not.toHaveStyle('display: none')
 })
+
+test('clicking the like button twice calls function twice', async () => {
+    const blog = {
+        title: 'XYZ blog',
+        author: 'Pogo',
+        url: 'https://pogo.com',
+        likes: 2
+    }
+    const mockHandler = jest.fn()
+
+    render(
+        <Blog blog={blog} handleLike={mockHandler} />
+    )
+
+    const user = userEvent.setup()
+    const button = screen.getByText('like')
+    await user.click(button)
+    await user.click(button)
+
+    expect(mockHandler.mock.calls).toHaveLength(2)
+})

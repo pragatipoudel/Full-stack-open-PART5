@@ -1,6 +1,8 @@
 import Blog from './Blog'
 import AddNewBlog from './new_blog'
 import Togglable from './togglable'
+import blogService from '../services/blogs'
+
 
 
 const LoggedIn = ({
@@ -17,6 +19,20 @@ const LoggedIn = ({
     sortedBlogs.sort((a, b) => {
         return b.likes - a.likes
     })
+
+    const handleLike = (blog) => {
+        const updatedBlog = {
+            ...blog,
+            likes: blog.likes ? blog.likes + 1 : 1
+        }
+        blogService
+            .update(blog.id, updatedBlog)
+            .then((returnedBlog) => {
+                setBlogs(blogs.map(b => b.id !== blog.id ? b : returnedBlog))
+            })
+
+
+    }
 
     return (
         <div>
@@ -38,7 +54,7 @@ const LoggedIn = ({
             </Togglable>
 
             {sortedBlogs.map(blog =>
-                <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={user} blogs={blogs}/>
+                <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={user} blogs={blogs} handleLike={handleLike}/>
             )}
         </div>
     ) }
